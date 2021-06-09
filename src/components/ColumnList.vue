@@ -1,0 +1,39 @@
+<template>
+  <div>
+    <ul>
+      <li v-for="column in list" :key="column.id">
+        <img :src="column.avatar" alt="" />
+        <h5>{{column.title}}</h5>
+        <p>{{column.description}}</p>
+        <a href="javascript:;">进入专栏</a>
+      </li>
+    </ul>
+  </div>
+</template>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+export interface ColumProps {
+  id: number;
+  title: string;
+  avatar: string;
+  description: string;
+}
+
+
+
+export default defineComponent({
+  name: 'ColumList',
+  props: {
+    list: {
+      type: Array as PropType<ColumProps []>,
+      required: true
+    }
+  },
+  setup() {
+   return {
+     
+   }
+  }
+
+})
+</script>

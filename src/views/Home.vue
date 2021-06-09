@@ -1,53 +1,49 @@
 <template>
   <div class="home">
-    <p>{{ count }}</p>
-    <p>{{ double }}</p>
-    <button @click="increment"> increment</button>
+    <ColumnList :list="list" />
+
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed } from 'vue';
 
+import {
+    defineComponent, reactive, toRefs,
 
-interface DataProps {
-  count: number;
-  double: number;
-  increment: () => void;
-}
+} from 'vue';
+
+import ColumnList, { ColumProps } from '@/components/ColumnList.vue'
+const testData: ColumProps[] = [
+  {
+    id: 1,
+    title: '专栏1',
+    description: 'https://img-cdn.ainiseo.com/logo/new_logo.png',
+    avatar: 'https://img-cdn.ainiseo.com/logo/new_logo.png'
+  },
+    {
+    id: 2,
+    title: '专栏2',
+    description: 'https://img-cdn.ainiseo.com/logo/new_logo.png',
+    avatar: 'https://img-cdn.ainiseo.com/logo/new_logo.png'
+  },
+]
 
 export default defineComponent({
   name: 'Home',
   components: {
+    ColumnList
 
   },
-  setup () {
-    /*
-    *  ref 给基本数据类型加上响应式
-    * reactive 给对象加上 本质是递归的ref
-    * */
-    const data: DataProps = reactive({
-      count: 0,
-      increment: () => {
-        data.count++;
-      },
-      double: computed(() => data.count * 2)
-    });
+  methods: {
 
-    /*
-    *  当你定义完 computed 之后 data 上会有飘红报错  类型错误
-    * 这是因为 computed callback之后 类型推论的一个缺陷
-    * 解决方法 1. 不管报错 2. 显示的给data指定一个 interface
-    *
-    * */
+  },
+  setup:  function () {
+    const list = reactive({
+      list: testData
+    })
     return {
-      /*
-      * 如果直接结构导出属性  那么导出的属性将失去响应式对象 reactive  必须toRefs重新加上proxy 对象
-      * */
-      ...toRefs(data)
+      ...toRefs(list)
     }
-
-
   }
 });
 </script>
