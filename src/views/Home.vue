@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <ColumnList :list="list" />
+    <NavBar :user="user" />
+    <ColumnList
+      :list="list"
+    />
 
   </div>
 </template>
@@ -13,6 +16,7 @@ import {
 } from 'vue';
 
 import ColumnList, { ColumProps } from '@/components/ColumnList.vue'
+import NavBar, { UserProps } from '@/components/NavBar.vue'
 const testData: ColumProps[] = [
   {
     id: 1,
@@ -26,12 +30,37 @@ const testData: ColumProps[] = [
     description: 'https://img-cdn.ainiseo.com/logo/new_logo.png',
     avatar: 'https://img-cdn.ainiseo.com/logo/new_logo.png'
   },
+    {
+    id: 3,
+    title: '专栏3',
+    description: 'https://img-cdn.ainiseo.com/logo/new_logo.png',
+    avatar: 'https://img-cdn.ainiseo.com/logo/new_logo.png'
+  },
+    {
+    id: 4,
+    title: '专栏4',
+    description: 'https://img-cdn.ainiseo.com/logo/new_logo.png',
+    avatar: 'https://img-cdn.ainiseo.com/logo/new_logo.png'
+  },
+    {
+    id: 5,
+    title: '专栏5',
+    description: 'https://img-cdn.ainiseo.com/logo/new_logo.png',
+    avatar: 'https://img-cdn.ainiseo.com/logo/new_logo.png'
+  }
 ]
+
+const currUserr: UserProps =  {
+  isLogin: true,
+  name: '赵洲',
+  id: '123'
+}
 
 export default defineComponent({
   name: 'Home',
   components: {
-    ColumnList
+    ColumnList,
+    NavBar
 
   },
   methods: {
@@ -42,7 +71,8 @@ export default defineComponent({
       list: testData
     })
     return {
-      ...toRefs(list)
+      ...toRefs(list),
+      user: currUserr
     }
   }
 });
